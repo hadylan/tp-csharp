@@ -1,0 +1,15 @@
+C:\Users\Dylan\Desktop\TP_CSHARP\bin\Debug\net7.0\TP_CSHARP.exe
+C:\Users\Dylan\Desktop\TP_CSHARP\bin\Debug\net7.0\TP_CSHARP.deps.json
+C:\Users\Dylan\Desktop\TP_CSHARP\bin\Debug\net7.0\TP_CSHARP.runtimeconfig.json
+C:\Users\Dylan\Desktop\TP_CSHARP\bin\Debug\net7.0\TP_CSHARP.dll
+C:\Users\Dylan\Desktop\TP_CSHARP\bin\Debug\net7.0\TP_CSHARP.pdb
+C:\Users\Dylan\Desktop\TP_CSHARP\obj\Debug\net7.0\TP_CSHARP.csproj.AssemblyReference.cache
+C:\Users\Dylan\Desktop\TP_CSHARP\obj\Debug\net7.0\TP_CSHARP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dylan\Desktop\TP_CSHARP\obj\Debug\net7.0\TP_CSHARP.AssemblyInfoInputs.cache
+C:\Users\Dylan\Desktop\TP_CSHARP\obj\Debug\net7.0\TP_CSHARP.AssemblyInfo.cs
+C:\Users\Dylan\Desktop\TP_CSHARP\obj\Debug\net7.0\TP_CSHARP.csproj.CoreCompileInputs.cache
+C:\Users\Dylan\Desktop\TP_CSHARP\obj\Debug\net7.0\TP_CSHARP.dll
+C:\Users\Dylan\Desktop\TP_CSHARP\obj\Debug\net7.0\refint\TP_CSHARP.dll
+C:\Users\Dylan\Desktop\TP_CSHARP\obj\Debug\net7.0\TP_CSHARP.pdb
+C:\Users\Dylan\Desktop\TP_CSHARP\obj\Debug\net7.0\TP_CSHARP.genruntimeconfig.cache
+C:\Users\Dylan\Desktop\TP_CSHARP\obj\Debug\net7.0\ref\TP_CSHARP.dll

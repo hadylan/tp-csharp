@@ -1,0 +1,77 @@
+// Define a dictionary with some key-value pairs.
+        Dictionary<int, Character> characters = new Dictionary<int, Character>()
+        {
+            {0, new Character(1, 75, 75, 75)},
+            {1, new Character(2, 75, 75, 75)},
+            {2, new Character(3, 75, 75, 75)}
+        };
+
+        Random random = new Random();
+
+        public int roll() {
+            int randomInt = random.Next(1, 100);
+            return randomInt;
+        }
+
+        static void Main(string[] args)
+        {
+            Program p = new Program();
+
+            Console.WriteLine("");
+            Console.WriteLine("---------- START ----------");
+            Console.WriteLine("");
+
+            // Mix the elements of the dictionary.
+            var mixedDict = p.characters.OrderBy(x => Guid.NewGuid()).ToDictionary(x => x.Key, x => x.Value);
+
+            for (int i = 0; i < mixedDict.Count; i++) {
+                Console.WriteLine("-------------- DUEL " + (i +1) + " --------------");
+
+                Character currentChar = mixedDict[i];
+                Character ennemy = mixedDict[p.random.Next(0, mixedDict.Count)];
+
+                while (currentChar == ennemy) {
+                    ennemy = mixedDict[p.random.Next(0, mixedDict.Count)];
+                }
+
+                // IR: Initiative Roll
+                int currentCharIR = p.random.Next(0, 100);
+                int ennemyIR = p.random.Next(0, 100);
+
+                Character firstStriker;
+                Character secondStriker;
+
+                // Determine who strike first
+                if (currentCharIR > ennemyIR) {
+                    Console.WriteLine("Character " + currentChar.Id + " comment et attaque Character " + ennemy.Id);
+                    firstStriker = currentChar;
+                    secondStriker = ennemy;
+                } else {
+                    Console.WriteLine("Character " + ennemy.Id + " commence et attaque Character " + currentChar.Id);
+                    firstStriker = ennemy;
+                    secondStriker = currentChar;
+                }
+
+                int attackMargin = (firstStriker.Attack + p.roll()) - (secondStriker.Defense + p.roll());
+
+                // Attack successful
+                if (attackMargin > 0) {
+                    int damages = attackMargin * firstStriker.Attack / 100;
+                    Console.WriteLine($"Attaque réussie: {ennemy.CurrentLife}HP -> {(ennemy.CurrentLife - damages)}HP");
+                    ennemy.hit(damages);
+                }
+                
+                // Attack failed
+                else {
+                    if (ennemy.CurrentAttackNumber > 0) {
+                        int counterAttackBonus = attackMargin * -1;
+                        Console.WriteLine($"Contre attaque: {firstStriker.CurrentLife}HP -> {(firstStriker.CurrentLife - counterAttackBonus)}HP");
+                        firstStriker.hit(counterAttackBonus);
+                    }
+                }
+                Console.WriteLine("");
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine("---------- END ----------");
+        }

@@ -1,0 +1,12 @@
+Début du tour :
+StunTurn--;
+CurrentAttackNumber = totalAttackNumber;
+Robot.power += 50%
+Soin de 10% de maximumLife pour tous les prêtres.
+
+
+Attaque :
+CurrentAttackNumber--;
+Pretre - cible en priorité les morts-vivants.
+Le kamikaze a 50% de chance de cibler tout le monde (dont lui).
+Tous les personnages qui se défendent contre une attaque du kamikaze se défendent contre le même jet d’attaque 

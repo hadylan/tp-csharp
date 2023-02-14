@@ -39,20 +39,29 @@ public class Character
         if (randomInt <= percentChanceToStun) {
             int stunTurnAmount = rnd.Next(0, 3);
             target.StunTurn = stunTurnAmount;
-            Console.Write($"L'attaque a étourdi la cible pendant {stunTurnAmount} tours.");
+            Console.Write($"L'attaque a étourdi la cible pendant {stunTurnAmount} tours. \n");
         }
     }
 
-    public virtual dynamic Attack(Character target) {
+    public virtual void Attack(Character target) {
+        Console.Write($"{this} attaque {target} \n\n");
+
         if (this.CurrentAttackNumber >= 1) {
+            // enough currentAttack, attacker can attack
+
+            this.CurrentAttackNumber--;
+
             if (this.StunTurn == 0) {
+                // attacker is not stunned, he can attack
                 // Define rolls and margin values
                 int targetDefenseRoll = target.Defense + target.Roll();
                 int attackerPowerRoll = this.Power + Roll();
                 int attackMargin = attackerPowerRoll - targetDefenseRoll;
 
+                /* Console.WriteLine($"attackerPowerRoll {attackerPowerRoll}");
+                Console.WriteLine($"targetDefenseRoll {targetDefenseRoll} \n\n"); */
+
                 if (attackMargin > 0) {
-                    this.CurrentAttackNumber--;
 
                     // Define damages received by target
                     int damages = attackMargin * this.Power / 100;
@@ -60,45 +69,55 @@ public class Character
                         damages += damages;
                     }
                     
-                    // Attack
+                    // Attack the target
                     target.CurrentLife -= damages;
 
-                    if (this is Vampire) {
+                    if (target is Warrior) {
+                        target.CurrentAttackNumber = 0;
+                    }
+
+                    if (this is Vampire && this.CurrentLife < this.MaximumLife) {
+                        // vampire heals half of the damage inflicted
                         this.CurrentLife += damages / 2;
                     }
 
                     if (target.IsDead()) {
-                        Console.Write($"Attaque réussie, inflige {damages} dommages et tue la cible.");
-                        return target;
+                        Console.Write($"Attaque réussie, inflige {damages} dommages et tue la cible. \n");
                     } else {
-                        TryToStun(target, damages);
-                        if (target is Warrior) {
-                            target.StunTurn += 1;
+                        // if received damages is higher than the remaining life of the target, he can be stunned.
+                        if (damages > target.CurrentLife) {
+                            if (target is Warrior) {
+                                target.StunTurn += 1;
+                            } else {
+                                TryToStun(target, damages);
+                            }
                         }
-                        Console.Write($"Attaque réussie, inflige {damages} dommages.");
-                        return true;
+                        Console.Write($"Attaque réussie, inflige {damages} dommages. \n");
                     }
-
                 } else {
-                    if (this is SuicideBomber) {
-                        Console.Write("Attaque ratée! contre-attaque impossible contre un Kamikaze");
-                    } else if (!(target is Zombie) || !(target is SuicideBomber)) {
-                        return target.CounterAttack(this, attackMargin);
-                    } else  {
-                        Console.Write("Attaque ratée! contre-attaque impossible avec ce personnage.");
+                    // attack blocked
+                    if (target is SuicideBomber || target is Zombie) {
+                        Console.Write("Attaque ratée! contre-attaque impossible avec ce personnage! \n\n");
+                    } else {
+                        // counter-attack
+                        Console.Write("Attaque ratée, l'adversaire contre-attaque! \n\n");
+                        target.CounterAttack(this, attackMargin);
                     }
                 }
+                return;
             } else {
-                Console.Write("Impossible de d'attaquer car le personnage est étourdi.");
-                return false;
+                // attacker is stun, he can't attack
+                Console.Write("Impossible de d'attaquer car le personnage est étourdi. \n");
+                return;
             }
         } else {
-            Console.Write("Impossible de d'attaquer car le personnage ne possède plus assez d'attaque.");
-            return false;
+            // not enough currentAttackNumber, attacker can't fight
+            Console.Write("Impossible d'attaquer car le personnage ne possède plus assez d'attaque. \n");
+            return;
         }
     }
 
-    public dynamic CounterAttack(Character target, int attackMargin) {
+    public void CounterAttack(Character target, int attackMargin) {
         if (this.CurrentAttackNumber >= 1) {
             if (this.StunTurn == 0) {
                 this.CurrentAttackNumber--;
@@ -106,6 +125,7 @@ public class Character
                 // Define damages received by target
                 int damages = attackMargin * -1;
 
+                // counterattack bonus is doubled
                 if (this is Guardian) {
                     damages += damages;
                 }
@@ -114,22 +134,23 @@ public class Character
                 target.CurrentLife -= damages;
 
                 if (target.IsDead()) {
-                    Console.Write($"Contre-attaque inflige {damages} dommages et tue la cible.");
-                    return target;
+                    Console.Write($"Contre-attaque inflige {damages} dommages et tue la cible. \n");
+                    return;
                 } else {
-                TryToStun(target, attackMargin);
+                    Console.WriteLine($"Contre-attaque inflige {damages} dommages, il lui reste {target.CurrentLife} points de vie. \n\n");
+                    TryToStun(target, attackMargin);
                 }
                 
-                return true;
+                return;
             } else {
                 // Attacker stun
-                Console.Write("Impossible de contre-attaquer car le personnage est étourdi.");
-                return false;
+                Console.Write("Impossible de contre-attaquer car le personnage est étourdi. \n");
+                return;
             }
         } else {
             // Attacker not enough currentAttackNumber
-            Console.Write("Impossible de contre-attaquer car le personnage ne possède plus assez d'attaque.");
-            return false;
+            Console.Write("Impossible de contre-attaquer car le personnage ne possède plus assez d'attaque. \n");
+            return;
         }
     }
 
@@ -187,13 +208,14 @@ public class Berserker : Character
         CurrentAttackNumber = 1;
     }
 
-    public override dynamic Attack(Character cible)
+    public override void Attack(Character cible)
     {
         Power += (MaximumLife - CurrentLife);
         if (CurrentLife < MaximumLife / 2) {
             TotalAttackNumber = 4;
         }
-        return base.Attack(cible);
+        base.Attack(cible);
+        return;
     }
 }
 

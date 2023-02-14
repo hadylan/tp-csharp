@@ -2,6 +2,8 @@
 {
     class Program
     {
+        Random rnd = new Random();
+        
         // Define a dictionary with some key-value pairs.
         Dictionary<int, Character> characters = new Dictionary<int, Character>()
         {
@@ -13,6 +15,20 @@
 
         int turn = 1;
 
+        public Character getTarget(Character player) {
+            List<int> keyCharactersList = new List<int>(characters.Keys);
+
+            Character target = characters[keyCharactersList[rnd.Next(keyCharactersList.Count)]];
+
+            if (target == player) {
+                while(target == player) {
+                    target = characters[keyCharactersList[rnd.Next(keyCharactersList.Count)]];
+                }
+            }
+
+            return target;
+        }
+
         public void PlayTurn() {
             List<int> keyCharactersList = new List<int>(characters.Keys);
             int alivePlayersCount = characters.Count();
@@ -21,20 +37,16 @@
             Console.WriteLine($"Joueurs en jeu : {alivePlayersCount} \n");
 
             foreach (KeyValuePair<int, Character> player in characters) {
-                Random rnd = new Random();
-                int randomKeyTarget = keyCharactersList[rnd.Next(keyCharactersList.Count)];
-                Character target = characters[randomKeyTarget];
-                
-                if (target == player.Value) {
-                    while(target == player.Value) {
-                        target = characters[keyCharactersList[rnd.Next(keyCharactersList.Count)]];
+                if (!player.Value.IsDead()) {
+                    int randomKeyTarget = keyCharactersList[rnd.Next(keyCharactersList.Count)];
+                    Character target = target = getTarget(player.Value);
+                    
+                    /* Console.WriteLine($"Player: {player}");
+                    Console.WriteLine($"Target: {target} \n"); */
+                    
+                    while(player.Value.CurrentAttackNumber > 0 && !target.IsDead()) {
+                        player.Value.Attack(target);
                     }
-                }
-                /* Console.WriteLine($"Player: {player}");
-                Console.WriteLine($"Target: {target} \n"); */
-                
-                while(player.Value.CurrentAttackNumber > 0) {
-                    player.Value.Attack(target);
                 }
                 
             }

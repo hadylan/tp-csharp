@@ -1,4 +1,6 @@
-﻿namespace Program
+﻿using TP_CSHARP.Characters;
+
+namespace Program
 {
     class Program
     {

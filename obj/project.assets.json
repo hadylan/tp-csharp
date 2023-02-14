@@ -8,25 +8,26 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Dylan\\.nuget\\packages\\": {}
+    "C:\\Users\\odoux\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dylan\\Desktop\\TP_CSHARP\\TP_CSHARP.csproj",
+      "projectUniqueName": "C:\\Users\\odoux\\Documents\\C#\\tp-csharp\\TP_CSHARP.csproj",
       "projectName": "TP_CSHARP",
-      "projectPath": "C:\\Users\\Dylan\\Desktop\\TP_CSHARP\\TP_CSHARP.csproj",
-      "packagesPath": "C:\\Users\\Dylan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dylan\\Desktop\\TP_CSHARP\\obj\\",
+      "projectPath": "C:\\Users\\odoux\\Documents\\C#\\tp-csharp\\TP_CSHARP.csproj",
+      "packagesPath": "C:\\Users\\odoux\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\odoux\\Documents\\C#\\tp-csharp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Dylan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\odoux\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
       },
       "frameworks": {
         "net7.0": {
@@ -59,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
